@@ -1,9 +1,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="test.notificationreader">
 
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher" android:supportsRtl="true"
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".ActivityInitialSetup">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Notifications Listeners -->
+        <service
+            android:name=".services.NotificationService"
+            android:label="@string/service_notification_label_text"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <!-- /Notifications Listeners -->
+
 
     </application>
 

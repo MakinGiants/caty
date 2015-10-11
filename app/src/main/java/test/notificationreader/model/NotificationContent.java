@@ -19,6 +19,11 @@ public class NotificationContent {
         mPackage = new StringBuilder(notification.getPackageName()).toString();
     }
 
+    public NotificationContent(AccessibilityEvent event) {
+        mText = getEventText(event);
+        mPackage = new StringBuilder(event.getPackageName()).toString();
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Getter/Setter">

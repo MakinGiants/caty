@@ -1,6 +1,7 @@
 package test.notificationreader.model;
 
 import android.content.Context;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 
 import java.util.Locale;
@@ -14,16 +15,20 @@ public class TextReader implements TextToSpeech.OnInitListener {
         mTextToSpeech = new TextToSpeech(context, this);
     }
 
+    @SuppressWarnings("deprecation")
     public void read(String text) {
-        //TODO: Search how to play for SDK < 21
-        mTextToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mTextToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            mTextToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 
     @Override
     public void onInit(int status) {
         if (status != TextToSpeech.ERROR) {
-            Locale spanish = new Locale("es", "ES");
-            mTextToSpeech.setLanguage(spanish);
+//            Locale spanish = new Locale("es", "ES");
+            mTextToSpeech.setLanguage(Locale.ITALIAN);
         }
     }
 

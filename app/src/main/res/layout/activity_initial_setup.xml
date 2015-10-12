@@ -12,6 +12,7 @@
         android:text="@string/initial_button_permission" />
 
     <Button
+        android:id="@+id/initial_button_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

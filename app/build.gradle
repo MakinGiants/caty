@@ -24,10 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
 
-    compile 'com.optimaize.languagedetector:language-detector:0.5'
-
-    testCompile ('com.squareup.assertj:assertj-android:1.1.0') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
     testCompile 'junit:junit:4.12'
 }

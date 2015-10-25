@@ -27,8 +27,8 @@ public class TextReader implements TextToSpeech.OnInitListener {
     @Override
     public void onInit(int status) {
         if (status != TextToSpeech.ERROR) {
-//            Locale spanish = new Locale("es", "ES");
-            mTextToSpeech.setLanguage(Locale.ITALIAN);
+            Locale spanish = new Locale("es", "ES");
+            mTextToSpeech.setLanguage(spanish);
         }
     }
 

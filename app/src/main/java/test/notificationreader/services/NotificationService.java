@@ -7,8 +7,10 @@ import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 
-import test.notificationreader.model.NotificationActor;
-import test.notificationreader.model.NotificationContent;
+import test.notificationreader.model.TextReader;
+import test.notificationreader.model.notifications.Notification;
+import test.notificationreader.model.notifications.NotificationActor;
+import test.notificationreader.model.notifications.NotificationFactory;
 
 /**
  * Used to listen notifications for SDK >= 18
@@ -20,14 +22,17 @@ public class NotificationService extends NotificationListenerService {
 
     @Override
     public IBinder onBind(Intent intent) {
-        mNotificationActor = new NotificationActor(getApplicationContext());
+        mNotificationActor = new NotificationActor(new TextReader(getApplicationContext()));
         return super.onBind(intent);
     }
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        NotificationContent notificationContent = new NotificationContent(sbn);
-        mNotificationActor.manageNotification(notificationContent);
+        String text = sbn.getNotification().tickerText.toString();
+        String aPackage = sbn.getPackageName();
+
+        Notification notification = NotificationFactory.build(text, aPackage);
+        mNotificationActor.manageNotification(notification);
     }
 
     @Override

@@ -5,4 +5,4 @@ android:
     - android-23
 
 script:
-   - ./gradlew build test
+   - ./gradlew test --stacktrace

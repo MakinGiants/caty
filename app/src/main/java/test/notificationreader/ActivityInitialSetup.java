@@ -2,6 +2,7 @@ package test.notificationreader;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
@@ -19,13 +20,16 @@ public class ActivityInitialSetup extends Activity {
 
     @OnClick(R.id.initial_button_permission)
     public void askPermissions() {
-        Intent intent;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+        String action;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            action = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
         } else {
-            intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            action = Settings.ACTION_ACCESSIBILITY_SETTINGS;
         }
-        startActivity(intent);
+
+        startActivity(new Intent(action));
     }
 
 }

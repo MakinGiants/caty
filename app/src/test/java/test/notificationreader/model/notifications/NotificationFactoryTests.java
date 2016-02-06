@@ -24,7 +24,7 @@ public class NotificationFactoryTests {
 
     @Test
     public void buildMessageNotification() {
-        Notification notification = NotificationFactory.build("Maria: hello Daniel", "facebook.messenger");
+        Notification notification = NotificationFactory.INSTANCE.build("Maria: hello Daniel", "facebook.messenger");
 
         assertThat(notification).isInstanceOf(MessageNotification.class);
 
@@ -36,13 +36,13 @@ public class NotificationFactoryTests {
 
     @Test
     public void buildSystemNotification() {
-        Notification notification = NotificationFactory.build("Something happened with phone", "android.vending");
+        Notification notification = NotificationFactory.INSTANCE.build("Something happened with phone", "android.vending");
         assertThat(notification).isInstanceOf(SystemNotification.class);
     }
 
     @Test
     public void buildOtherNotification() {
-        Notification notification = NotificationFactory.build("Maria hello Daniel", "facebook.messenger");
+        Notification notification = NotificationFactory.INSTANCE.build("Maria hello Daniel", "facebook.messenger");
 
         assertThat(notification).isInstanceOf(Notification.class);
         assertThat(notification).isNotInstanceOf(MessageNotification.class);

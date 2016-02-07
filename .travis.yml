@@ -12,7 +12,7 @@ android:
     - extra-android-m2repository
 
 before_install:
-    - echo "MAVEN_OPTS='-Xmx2048m -XX:MaxPermSize=512m'" > ~/.mavenrc
+    - echo "MAVEN_OPTS='-Xmx4096m -XX:MaxPermSize=1024m'" > ~/.mavenrc
     - chmod +x gradlew
 
 script:

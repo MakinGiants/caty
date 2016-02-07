@@ -39,8 +39,8 @@ android {
 }
 
 dependencies {
-  compile "com.android.support:appcompat-v7:${rootProject.deps.supportLib}"
-  compile "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.deps.kotlin}"
+  compile "com.android.support:appcompat-v7:$deps.supportLib"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$deps.kotlin"
 
   compile 'com.jakewharton:butterknife:7.0.1'
   kapt 'com.jakewharton:butterknife:7.0.1'

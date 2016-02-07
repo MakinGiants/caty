@@ -1,43 +1,59 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
+  repositories {
+    jcenter()
+  }
 
-    dependencies {
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
-    }
+  dependencies {
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+    classpath 'net.rdrei.android.buildtimetracker:gradle-plugin:0.5.0'
+  }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'kotlin-android'
+apply plugin: "build-time-tracker"
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+  compileSdkVersion 23
+  buildToolsVersion "23.0.2"
 
-    defaultConfig {
-        applicationId "test.notificationreader"
-        minSdkVersion 18
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+  defaultConfig {
+    applicationId "test.notificationreader"
+    minSdkVersion 18
+    targetSdkVersion 23
+    versionCode 1
+    versionName "1.0"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
+
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+  compile "com.android.support:appcompat-v7:$deps.supportLib"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$deps.kotlin"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.31-beta'
-    testCompile('com.squareup.assertj:assertj-android:1.1.1') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+  compile 'com.jakewharton:butterknife:7.0.1'
+  kapt 'com.jakewharton:butterknife:7.0.1'
+
+
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.mockito:mockito-core:2.0.31-beta'
+  testCompile('com.squareup.assertj:assertj-android:1.1.1') {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  }
+}
+
+//ButterKnife For Kotlin
+kapt {
+  generateStubs = true
 }

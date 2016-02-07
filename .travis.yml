@@ -5,12 +5,14 @@ android:
     - 'android-sdk-license-.+'
 
   components:
-    - build-tools-23.0.1
+    - tools
+    - build-tools-23.0.2
     - android-23
     - extra-android-support
     - extra-android-m2repository
 
 before_install:
+    - echo "MAVEN_OPTS='-Xmx4096m -XX:MaxPermSize=1024m'" > ~/.mavenrc
     - chmod +x gradlew
 
 script:

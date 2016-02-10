@@ -1,25 +1,39 @@
-package test.notificationreader
+package test.notificationreader.setup
 
 import android.app.Activity
-import android.app.NotificationManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v7.app.NotificationCompat
 import butterknife.ButterKnife
 import butterknife.OnClick
+import test.notificationreader.R
+import test.notificationreader.model.AndroidNotificationFabric
 
+class ActivityInitialSetup : Activity(), InitialSetupView {
+    private var mPresenter: InitialSetupPresenter? = null
 
-class ActivityInitialSetup : Activity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_initial_setup)
         ButterKnife.bind(this)
+
+        mPresenter = InitialSetupPresenter()
+        mPresenter?.onCreate(this, AndroidNotificationFabric(applicationContext))
     }
 
     @OnClick(R.id.initial_button_permission)
     fun askPermissions() {
+        mPresenter?.onButtonNotificationPermissionClick()
+    }
+
+    @OnClick(R.id.initial_button_try)
+    fun createNotification() {
+        mPresenter?.onButtonTryClick()
+    }
+
+    //<editor-fold desc="InitialSetupView">
+    override fun startNotificationPermissionView() {
         val action: String
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
@@ -31,15 +45,6 @@ class ActivityInitialSetup : Activity() {
 
         startActivity(Intent(action))
     }
-
-    @OnClick(R.id.initial_button_try)
-    fun createNotification() {
-        val mBuilder = NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Notification Test")
-                .setContentText("Notification test reader: This is the first try for a notification.")
-
-        val mNotifyMgr = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        mNotifyMgr.notify(1, mBuilder.build());
-    }
+    //</editor-fold>
 }
+

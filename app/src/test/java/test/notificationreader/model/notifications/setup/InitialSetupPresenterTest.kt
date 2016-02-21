@@ -29,6 +29,7 @@ class InitialSetupPresenterTest {
         mPresenter.onButtonNextClick()
 
         verify(mockedView).startSettingsView()
+        verify(mockedView).stop()
         verify(mockedSettings).permissionGranted = true
     }
 
@@ -46,6 +47,5 @@ class InitialSetupPresenterTest {
     fun test_onButtonPermission_startNotificationPermissionView() {
         mPresenter.onButtonNotificationPermissionClick()
         verify(mockedView).startNotificationPermissionView()
-        verify(mockedView).stop()
     }
 }

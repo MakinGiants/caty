@@ -8,5 +8,6 @@
   <string name="initial_button_permission">Get permissions</string>
   <string name="initial_button_try">Try</string>
   <string name="settings_just_phones">Read just with headphones</string>
+  <string name="initial_button_next">Next</string>
 
 </resources>

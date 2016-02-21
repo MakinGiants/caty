@@ -18,4 +18,11 @@
     android:layout_gravity="center_horizontal"
     android:text="@string/initial_button_try" />
 
+  <Button
+    android:id="@+id/initial_button_next"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="@string/initial_button_next" />
+
 </LinearLayout>

@@ -10,8 +10,13 @@ class SettingsPresenter {
         mView = view
         mSettings = settings
 
-        view.initViews()
-        view.setHeadphonesToggleCheck(settings.playJustWithHeadphones)
+        if (mSettings?.permissionGranted ?: false) {
+            view.initViews()
+            view.setHeadphonesToggleCheck(settings.playJustWithHeadphones)
+        } else {
+            view.startSettingsView()
+            view.close()
+        }
     }
 
     fun onTogglePlayJustWithHeadphonesClick(checked: Boolean) {

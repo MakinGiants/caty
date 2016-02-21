@@ -4,7 +4,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import test.notificationreader.model.cache.Settings
 import test.notificationreader.settings.SettingsPresenter
@@ -22,20 +22,32 @@ class SettingsPresenterTests {
     }
 
     @Test
-    fun test_onCreate_updateGui() {
+    fun test_onCreate_ifPermissionsGranted_updateGui() {
         Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
+        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(true)
         presenter.onCreate(mockedView, mockedSettings)
 
-        Mockito.verify(mockedView).initViews()
-        Mockito.verify(mockedView).setHeadphonesToggleCheck(true)
+        verify(mockedView).initViews()
+        verify(mockedView).setHeadphonesToggleCheck(true)
+    }
+
+    @Test
+    fun test_onCreate_ifPermissionsNOTGranted_startSetupView() {
+        Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
+        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(false)
+        presenter.onCreate(mockedView, mockedSettings)
+
+        verify(mockedView).startSettingsView()
+        verify(mockedView).close()
     }
 
     @Test
     fun test_onTogglePlayJustWithHeadphonesClick_updateGui() {
         Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
+        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(true)
         presenter.onCreate(mockedView, mockedSettings)
 
         presenter.onTogglePlayJustWithHeadphonesClick(false)
-        Mockito.verify(mockedView, times(2)).setHeadphonesToggleCheck(false)
+        verify(mockedSettings).playJustWithHeadphones = false
     }
 }

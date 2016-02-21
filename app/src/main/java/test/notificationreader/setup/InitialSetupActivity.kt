@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import butterknife.ButterKnife
 import butterknife.OnClick
 import test.notificationreader.R
 import test.notificationreader.model.AndroidNotificationFabric
+import test.notificationreader.model.cache.Settings
+import test.notificationreader.settings.SettingsActivity
+import android.provider.Settings as ProviderSettings
 
 class InitialSetupActivity : Activity(), InitialSetupView {
     private var mPresenter: InitialSetupPresenter? = null
@@ -19,7 +21,16 @@ class InitialSetupActivity : Activity(), InitialSetupView {
         ButterKnife.bind(this)
 
         mPresenter = InitialSetupPresenter()
-        mPresenter?.onCreate(this, AndroidNotificationFabric(applicationContext))
+        mPresenter?.onCreate(this, AndroidNotificationFabric(applicationContext),
+                Settings(applicationContext))
+    }
+
+    override fun startSettingsView() =
+            startActivity(Intent(applicationContext, SettingsActivity::class.java))
+
+    @OnClick(R.id.initial_button_next)
+    fun next() {
+        mPresenter?.onButtonNextClick()
     }
 
     @OnClick(R.id.initial_button_permission)
@@ -36,15 +47,18 @@ class InitialSetupActivity : Activity(), InitialSetupView {
     override fun startNotificationPermissionView() {
         val action: String
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            action = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
+            action = ProviderSettings.ACTION_NOTIFICATION_LISTENER_SETTINGS
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             action = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
         } else {
-            action = Settings.ACTION_ACCESSIBILITY_SETTINGS
+            action = ProviderSettings.ACTION_ACCESSIBILITY_SETTINGS
         }
 
         startActivity(Intent(action))
     }
+
+    override fun stop() {
+        finish()
+    }
     //</editor-fold>
 }
-

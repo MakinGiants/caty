@@ -10,7 +10,7 @@ import butterknife.OnClick
 import test.notificationreader.R
 import test.notificationreader.model.AndroidNotificationFabric
 
-class ActivityInitialSetup : Activity(), InitialSetupView {
+class InitialSetupActivity : Activity(), InitialSetupView {
     private var mPresenter: InitialSetupPresenter? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {

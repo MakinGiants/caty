@@ -1,11 +1,11 @@
 buildscript {
-  ext.deps = [supportLib: "23.1.1", kotlin: "1.0.0-rc-1036"]
+  ext.deps = [supportLib: "23.1.1", kotlin: "1.0.0"]
 
   repositories {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.0.0-beta2'
+    classpath 'com.android.tools.build:gradle:2.0.0-beta5'
   }
 }
 

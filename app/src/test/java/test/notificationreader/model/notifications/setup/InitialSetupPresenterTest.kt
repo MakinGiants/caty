@@ -5,14 +5,14 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import test.notificationreader.model.NotificationFabric
+import test.notificationreader.model.notifications.Notifier
 import test.notificationreader.model.cache.Settings
 import test.notificationreader.setup.InitialSetupPresenter
 import test.notificationreader.setup.InitialSetupView
 
 class InitialSetupPresenterTest {
     @Mock lateinit var mockedView: InitialSetupView
-    @Mock lateinit var mockedNotificationFabric: NotificationFabric
+    @Mock lateinit var mockedNotificationFabric: Notifier
     @Mock lateinit var mockedSettings: Settings
     lateinit var mPresenter: InitialSetupPresenter
 

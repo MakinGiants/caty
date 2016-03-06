@@ -4,11 +4,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import butterknife.ButterKnife
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.initial_setup_activity.*
 import test.notificationreader.R
-import test.notificationreader.model.AndroidNotificationFabric
 import test.notificationreader.model.cache.Settings
+import test.notificationreader.model.notifications.Notifier
 import test.notificationreader.settings.SettingsActivity
 import android.provider.Settings as ProviderSettings
 
@@ -17,31 +16,18 @@ class InitialSetupActivity : AppCompatActivity(), InitialSetupView {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_initial_setup)
-        ButterKnife.bind(this)
+        setContentView(R.layout.initial_setup_activity)
 
         mPresenter = InitialSetupPresenter()
-        mPresenter?.onCreate(this, AndroidNotificationFabric(applicationContext),
-                Settings(applicationContext))
+        mPresenter?.onCreate(this, Notifier(applicationContext), Settings(applicationContext))
+
+        nextButton.setOnClickListener { mPresenter?.onButtonNextClick() }
+        tryButton.setOnClickListener { mPresenter?.onButtonTryClick() }
+        permissionButton.setOnClickListener { mPresenter?.onButtonNotificationPermissionClick() }
     }
 
     override fun startSettingsView() =
             startActivity(Intent(applicationContext, SettingsActivity::class.java))
-
-    @OnClick(R.id.initial_button_next)
-    fun next() {
-        mPresenter?.onButtonNextClick()
-    }
-
-    @OnClick(R.id.initial_button_permission)
-    fun askPermissions() {
-        mPresenter?.onButtonNotificationPermissionClick()
-    }
-
-    @OnClick(R.id.initial_button_try)
-    fun createNotification() {
-        mPresenter?.onButtonTryClick()
-    }
 
     //<editor-fold desc="InitialSetupView">
     override fun startNotificationPermissionView() {
@@ -57,8 +43,7 @@ class InitialSetupActivity : AppCompatActivity(), InitialSetupView {
         startActivity(Intent(action))
     }
 
-    override fun stop() {
-        finish()
-    }
+    override fun stop() = finish()
     //</editor-fold>
+
 }

@@ -1,4 +1,4 @@
-package test.notificationreader.model
+package test.notificationreader.model.notifications
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -10,14 +10,10 @@ import android.support.v7.app.NotificationCompat
 import test.notificationreader.R
 import java.lang.ref.WeakReference
 
-interface NotificationFabric {
-    fun notify(title: String, text: String)
-}
-
-class AndroidNotificationFabric(context: Context) : NotificationFabric {
+open class Notifier(context: Context) {
     val weakContext = WeakReference(context)
 
-    override fun notify(title: String, text: String) {
+    open fun notify(title: String, text: String) {
         weakContext.get()?.let {
             val pendingIntent = PendingIntent.getActivity(it, 1, Intent(), PendingIntent.FLAG_UPDATE_CURRENT)
             val mBuilder = NotificationCompat.Builder(it)

@@ -5,21 +5,21 @@
   android:orientation="vertical">
 
   <Button
-    android:id="@+id/initial_button_permission"
+    android:id="@+id/permissionButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:text="@string/initial_button_permission" />
 
   <Button
-    android:id="@+id/initial_button_try"
+    android:id="@+id/tryButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:text="@string/initial_button_try" />
 
   <Button
-    android:id="@+id/initial_button_next"
+    android:id="@+id/nextButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"

@@ -6,7 +6,7 @@ import android.view.accessibility.AccessibilityEvent
 import test.notificationreader.model.DeviceStatusChecker
 import test.notificationreader.model.TextReader
 import test.notificationreader.model.cache.Settings
-import test.notificationreader.model.notifications.NotificationFactory
+import test.notificationreader.model.notifications.Notification
 import test.notificationreader.model.notifications.NotificationHandler
 
 class AccessibilityListenerService : AccessibilityService() {
@@ -29,7 +29,7 @@ class AccessibilityListenerService : AccessibilityService() {
         val text = getEventText(event)
         val aPackage = event.packageName.toString()
 
-        val notification = NotificationFactory.build(text, aPackage)
+        val notification = Notification.with(text, aPackage)
         mNotificationActor?.handle(notification)
     }
 

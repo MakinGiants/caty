@@ -6,16 +6,16 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import test.notificationreader.model.NotificationFabric
+import test.notificationreader.model.notifications.Notifier
 import test.notificationreader.model.cache.Settings
 import test.notificationreader.settings.SettingsPresenter
 import test.notificationreader.settings.SettingsView
 import net.paslavsky.kotlin.mockito.verify as kNotify
 
-class SettingsPresenterTests {
+class SettingsPresenterTest {
     @Mock lateinit var mockedView: SettingsView
     @Mock lateinit var mockedSettings: Settings
-    @Mock lateinit var mockedNotificationFabric: NotificationFabric
+    @Mock lateinit var mockedNotificationFabric: Notifier
     lateinit var presenter: SettingsPresenter
 
     @Before

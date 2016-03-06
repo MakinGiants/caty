@@ -3,10 +3,10 @@ package test.notificationreader.settings
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.settings_activity.*
 import test.notificationreader.R
-import test.notificationreader.model.AndroidNotificationFabric
 import test.notificationreader.model.cache.Settings
+import test.notificationreader.model.notifications.Notifier
 import test.notificationreader.setup.InitialSetupActivity
 
 class SettingsActivity : AppCompatActivity(), SettingsView {
@@ -16,12 +16,11 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
         super.onCreate(savedInstanceState)
 
         mPresenter = SettingsPresenter()
-        mPresenter?.onCreate(this, Settings(applicationContext),
-                AndroidNotificationFabric(applicationContext))
+        mPresenter?.onCreate(this, Settings(applicationContext), Notifier(applicationContext))
     }
 
     override fun initViews() {
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.settings_activity)
 
         justHeadphonesSwitch.setOnCheckedChangeListener({ v, check ->
             mPresenter?.onTogglePlayJustWithHeadphonesClick(check)

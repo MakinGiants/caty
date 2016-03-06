@@ -45,18 +45,10 @@ dependencies {
   compile "com.android.support:appcompat-v7:$deps.supportLib"
   compile "org.jetbrains.kotlin:kotlin-stdlib:$deps.kotlin"
 
-  compile 'com.jakewharton:butterknife:7.0.1'
-  kapt 'com.jakewharton:butterknife:7.0.1'
-
   testCompile 'net.paslavsky.kotlin:mockito-kt:0.0.4-beta'
   testCompile 'junit:junit:4.12'
   testCompile 'org.mockito:mockito-core:2.0.42-beta'
   testCompile('com.squareup.assertj:assertj-android:1.1.1') {
     exclude group: 'com.android.support', module: 'support-annotations'
   }
-}
-
-//ButterKnife For Kotlin
-kapt {
-  generateStubs = true
 }

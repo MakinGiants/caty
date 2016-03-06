@@ -9,7 +9,7 @@ import android.service.notification.StatusBarNotification
 import test.notificationreader.model.DeviceStatusChecker
 import test.notificationreader.model.TextReader
 import test.notificationreader.model.cache.Settings
-import test.notificationreader.model.notifications.NotificationFactory
+import test.notificationreader.model.notifications.Notification
 import test.notificationreader.model.notifications.NotificationHandler
 
 /**
@@ -37,7 +37,7 @@ class NotificationService : NotificationListenerService() {
 
         val aPackage = sbn.packageName
 
-        val notification = NotificationFactory.build(text, aPackage)
+        val notification = Notification.with(text, aPackage)
         mNotificationActor?.handle(notification)
     }
 

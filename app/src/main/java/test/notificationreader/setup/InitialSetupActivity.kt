@@ -1,9 +1,9 @@
 package test.notificationreader.setup
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import butterknife.ButterKnife
 import butterknife.OnClick
 import test.notificationreader.R
@@ -12,7 +12,7 @@ import test.notificationreader.model.cache.Settings
 import test.notificationreader.settings.SettingsActivity
 import android.provider.Settings as ProviderSettings
 
-class InitialSetupActivity : Activity(), InitialSetupView {
+class InitialSetupActivity : AppCompatActivity(), InitialSetupView {
     private var mPresenter: InitialSetupPresenter? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {

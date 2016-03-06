@@ -1,14 +1,14 @@
 package test.notificationreader.settings
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import test.notificationreader.R
 import test.notificationreader.model.cache.Settings
 import test.notificationreader.setup.InitialSetupActivity
 
-class SettingsActivity : Activity(), SettingsView {
+class SettingsActivity : AppCompatActivity(), SettingsView {
     private var mPresenter: SettingsPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

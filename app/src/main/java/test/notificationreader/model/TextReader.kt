@@ -14,7 +14,7 @@ open class TextReader(context: Context) : TextToSpeech.OnInitListener {
     }
 
     @SuppressWarnings("deprecation")
-    fun read(text: String) {
+    open fun read(text: String) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mTextToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
         } else {

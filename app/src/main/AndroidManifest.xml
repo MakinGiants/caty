@@ -8,13 +8,19 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".setup.InitialSetupActivity" />
+    <activity
+      android:name=".setup.InitialSetupActivity"
+      android:label="Setup" />
 
-    <activity android:name=".settings.SettingsActivity">
+    <activity
+      android:name=".settings.SettingsActivity"
+      android:label="Settings">
+
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
+
     </activity>
 
     <!-- Notifications Listeners -->

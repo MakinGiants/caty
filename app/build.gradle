@@ -15,6 +15,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "build-time-tracker"
+apply from:'jacoco.gradle'
 
 android {
   compileSdkVersion 23

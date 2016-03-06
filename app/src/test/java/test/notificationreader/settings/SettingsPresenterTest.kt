@@ -1,16 +1,14 @@
-package test.notificationreader.model.notifications.settings
+package test.notificationreader.settings
 
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.any
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import test.notificationreader.model.notifications.Notifier
 import test.notificationreader.model.cache.Settings
-import test.notificationreader.settings.SettingsPresenter
-import test.notificationreader.settings.SettingsView
-import net.paslavsky.kotlin.mockito.verify as kNotify
+import test.notificationreader.model.notifications.Notifier
 
 class SettingsPresenterTest {
     @Mock lateinit var mockedView: SettingsView
@@ -57,6 +55,6 @@ class SettingsPresenterTest {
     @Test
     fun test_onButtonTryClick_notify() {
         presenter.onButtonTryClick()
-        kNotify(mockedNotificationFabric) { times(1).notify(anyString(), anyString()) }
+        verify(mockedNotificationFabric).notify(any(), any())
     }
 }

@@ -6,19 +6,23 @@ import android.os.Build
 import android.os.IBinder
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import test.notificationreader.model.DeviceStatusChecker
 import test.notificationreader.model.TextReader
-import test.notificationreader.model.notifications.NotificationActor
+import test.notificationreader.model.cache.Settings
 import test.notificationreader.model.notifications.NotificationFactory
+import test.notificationreader.model.notifications.NotificationHandler
 
 /**
  * Used to listen notifications for SDK >= 18
  */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 class NotificationService : NotificationListenerService() {
-    internal var mNotificationActor: NotificationActor? = null
+    internal var mNotificationActor: NotificationHandler? = null
 
     override fun onBind(intent: Intent): IBinder? {
-        mNotificationActor = NotificationActor(TextReader(applicationContext))
+        mNotificationActor = NotificationHandler(Settings(applicationContext),
+                TextReader(applicationContext), DeviceStatusChecker(applicationContext))
+
         return super.onBind(intent)
     }
 
@@ -26,7 +30,7 @@ class NotificationService : NotificationListenerService() {
         val text: String
 
         if (sbn.notification.tickerText == null) {
-            text = sbn.notification.extras.get("android.text") as String
+            text = sbn.notification.extras.get("android.text") as String? ?: "Empty"
         } else {
             text = sbn.notification.tickerText.toString()
         }
@@ -34,7 +38,7 @@ class NotificationService : NotificationListenerService() {
         val aPackage = sbn.packageName
 
         val notification = NotificationFactory.build(text, aPackage)
-        mNotificationActor?.manageNotification(notification)
+        mNotificationActor?.handle(notification)
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification) {

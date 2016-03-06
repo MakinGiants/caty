@@ -1,22 +1,9 @@
 package test.notificationreader.model.notifications
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import test.notificationreader.model.TextReader
 
 class NotificationFactoryTests {
-    @Mock internal var mTextReader: TextReader? = null
-    internal var mActor: NotificationActor? = null
-
-    @Before
-    fun setupMocks() {
-        MockitoAnnotations.initMocks(this)
-        mActor = NotificationActor(mTextReader!!)
-    }
-
     @Test
     fun buildMessageNotification() {
         val notification = NotificationFactory.build("Maria: hello Daniel", "facebook.messenger")

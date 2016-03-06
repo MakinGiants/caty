@@ -1,15 +1,15 @@
-package test.notificationreader.model.notifications.model.notifications
+package test.notificationreader.model.notifications
 
-import net.paslavsky.kotlin.mockito.verify
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import test.notificationreader.model.DeviceStatusChecker
 import test.notificationreader.model.TextReader
 import test.notificationreader.model.cache.Settings
-import test.notificationreader.model.notifications.NotificationHandler
 
 class NotificationHandlerTest {
     @Mock lateinit var mockedTextReader: TextReader
@@ -33,7 +33,7 @@ class NotificationHandlerTest {
         notificationHandler.handle(notification)
 
 
-        verify(mockedTextReader) { times(0).read(notification.text) }
+        verify(mockedTextReader, times(0)).read(notification.text)
     }
 
     @Test
@@ -45,7 +45,7 @@ class NotificationHandlerTest {
 
         notificationHandler.handle(notification)
 
-        verify(mockedTextReader) { times(1).read(notification.text) }
+        verify(mockedTextReader, times(1)).read(notification.text)
     }
 
     @Test
@@ -56,7 +56,7 @@ class NotificationHandlerTest {
 
         notificationHandler.handle(notification)
 
-        verify(mockedTextReader) { times(1).read(notification.text) }
+        verify(mockedTextReader, times(1)).read(notification.text)
     }
 
 }

@@ -1,4 +1,4 @@
-package test.notificationreader.model.notifications.model.notifications
+package test.notificationreader.model.notifications
 
 import test.notificationreader.model.notifications.Notification
 

@@ -2,6 +2,9 @@ package test.notificationreader.model.notifications
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
+import test.notificationreader.model.notifications.MessageNotification
+import test.notificationreader.model.notifications.Notification
+import test.notificationreader.model.notifications.SystemNotification
 
 class NotificationTest {
     @Test

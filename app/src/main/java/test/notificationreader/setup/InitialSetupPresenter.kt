@@ -1,14 +1,17 @@
 package test.notificationreader.setup
 
-import test.notificationreader.model.NotificationFabric
+import test.notificationreader.model.cache.Settings
+import test.notificationreader.model.notifications.Notifier
 
 class InitialSetupPresenter {
     private var mView: InitialSetupView? = null
-    private var mNotificationFabric: NotificationFabric? = null
+    private var mNotifier: Notifier? = null
+    private var mSettings: Settings? = null
 
-    fun onCreate(view: InitialSetupView, notificationFabric: NotificationFabric) {
+    fun onCreate(view: InitialSetupView, notificationFabric: Notifier, settings: Settings) {
         mView = view
-        mNotificationFabric = notificationFabric
+        mNotifier = notificationFabric
+        mSettings = settings
     }
 
     fun onButtonNotificationPermissionClick() {
@@ -16,7 +19,14 @@ class InitialSetupPresenter {
     }
 
     fun onButtonTryClick() {
-        mNotificationFabric?.notify("Notification Test",
+        mNotifier?.notify("Notification Test",
                 "Notification test reader: This is the first try for a notification.")
+    }
+
+    fun onButtonNextClick() {
+        //TODO: check if permissions where granted
+        mSettings?.permissionGranted = true
+        mView?.startSettingsView()
+        mView?.stop()
     }
 }

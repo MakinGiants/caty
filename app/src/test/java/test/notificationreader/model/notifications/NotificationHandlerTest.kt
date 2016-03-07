@@ -32,7 +32,6 @@ class NotificationHandlerTest {
 
         notificationHandler.handle(notification)
 
-
         verify(mockedTextReader, times(0)).read(notification.text)
     }
 

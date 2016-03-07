@@ -1,5 +1,8 @@
 language: android
 
+sudo: required
+install: true
+
 android:
   licenses:
     - 'android-sdk-license-.+'
@@ -14,9 +17,13 @@ android:
 before_install:
     - echo "MAVEN_OPTS='-Xmx4096m -XX:MaxPermSize=1024m'" > ~/.mavenrc
     - chmod +x gradlew
+    - pip install --user codecov
+
+after_success:
+  - codecov
 
 script:
-    - ./gradlew test --stacktrace
+    - ./gradlew testReleaseUnitTestCoverage --stacktrace
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -24,3 +31,5 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native

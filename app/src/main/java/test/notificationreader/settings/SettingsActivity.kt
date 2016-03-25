@@ -46,8 +46,5 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
 
     override fun setEnabledSwitchPlayJustWithHeadphones(enabled: Boolean) =
             justHeadphonesSwitch.setEnabled(enabled)
-
-    override fun setEnabledButtonTry(enabled: Boolean) =
-            tryButton.setEnabled(enabled)
-
+    
 }

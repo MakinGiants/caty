@@ -40,9 +40,6 @@ open class SettingsPresenter {
     }
 
     open fun setOtherViewsEnabled(enabled: Boolean) {
-        mView?.apply {
-            setEnabledButtonTry(enabled)
-            setEnabledSwitchPlayJustWithHeadphones(enabled)
-        }
+        mView?.setEnabledSwitchPlayJustWithHeadphones(enabled)
     }
 }

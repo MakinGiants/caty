@@ -9,6 +9,7 @@
   <string name="initial_button_try">Try</string>
   <string name="initial_button_next">Next</string>
 
+  <string name="settings_read_notifications">Read notifications</string>
   <string name="settings_just_phones">Read just with headphones</string>
   <string name="settings_button_try">Test settings</string>
 

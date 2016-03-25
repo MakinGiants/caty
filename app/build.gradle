@@ -39,6 +39,7 @@ dependencies {
   compile "com.android.support:appcompat-v7:$deps.supportLib"
   compile "org.jetbrains.kotlin:kotlin-stdlib:$deps.kotlin"
 
+  compile files('libs/mockito-kt-0.0.5-beta.jar')
   testCompile 'junit:junit:4.12'
   testCompile 'org.mockito:mockito-core:2.0.42-beta'
   testCompile('com.squareup.assertj:assertj-android:1.1.1') {

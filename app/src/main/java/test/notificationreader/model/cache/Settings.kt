@@ -12,4 +12,8 @@ open class Settings(context: Context) {
     open var permissionGranted: Boolean
         get() = localCache.get("permissions", false)
         set(value) = localCache.put("permissions", value)
+
+    open var readNotificationEnabled: Boolean
+        get() = localCache.get("read_notification", true)
+        set(value) = localCache.put("read_notification", value)
 }

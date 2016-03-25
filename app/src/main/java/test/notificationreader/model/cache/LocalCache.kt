@@ -13,7 +13,7 @@ class LocalCache(context: Context) : Cache {
             is Int -> getInt(name, default)
             is Boolean -> getBoolean(name, default)
             is Float -> getFloat(name, default)
-            else -> throw java.lang.IllegalArgumentException("This type can be saved into Preferences")
+            else -> throw java.lang.IllegalArgumentException("Type not allowed.")
         }
 
         res as U
@@ -26,7 +26,7 @@ class LocalCache(context: Context) : Cache {
             is Int -> putInt(name, value)
             is Boolean -> putBoolean(name, value)
             is Float -> putFloat(name, value)
-            else -> throw java.lang.IllegalArgumentException("This type can be saved into Preferences")
+            else -> throw java.lang.IllegalArgumentException("Type not allowed.")
         }.apply()
     }
 }

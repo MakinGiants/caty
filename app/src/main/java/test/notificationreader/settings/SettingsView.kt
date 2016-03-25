@@ -11,5 +11,4 @@ interface SettingsView {
     fun close()
 
     fun setEnabledSwitchPlayJustWithHeadphones(enabled: Boolean)
-    fun setEnabledButtonTry(enabled: Boolean)
 }

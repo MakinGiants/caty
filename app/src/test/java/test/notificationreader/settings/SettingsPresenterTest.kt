@@ -102,10 +102,7 @@ class SettingsPresenterTest {
 
         spiedPresenter.setOtherViewsEnabled(enabled)
 
-        verifyOnce(mockedView) {
-            setEnabledButtonTry(enabled)
-            setEnabledSwitchPlayJustWithHeadphones(enabled)
-        }
+        verify(mockedView).setEnabledSwitchPlayJustWithHeadphones(enabled)
     }
 
     @Test

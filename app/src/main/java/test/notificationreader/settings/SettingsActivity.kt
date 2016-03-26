@@ -23,8 +23,12 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
         setContentView(R.layout.settings_activity)
 
         justHeadphonesSwitch.setOnCheckedChangeListener({ v, check ->
-            mPresenter?.onTogglePlayJustWithHeadphonesClick(check)
+            mPresenter?.onSwitchPlayJustWithHeadphonesClick(check)
         })
+
+        readNotificationSwitch.setOnCheckedChangeListener { v, check ->
+            mPresenter?.onSwitchReadNotificationEnabledClick(check)
+        }
 
         tryButton.setOnClickListener({ mPresenter?.onButtonTryClick() })
     }
@@ -37,4 +41,10 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
     override fun setHeadphonesToggleCheck(checked: Boolean) =
             justHeadphonesSwitch.setChecked(checked)
 
+    override fun setReadNotificationsCheck(checked: Boolean) =
+            readNotificationSwitch.setChecked(checked)
+
+    override fun setEnabledSwitchPlayJustWithHeadphones(enabled: Boolean) =
+            justHeadphonesSwitch.setEnabled(enabled)
+    
 }

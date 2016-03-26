@@ -21,6 +21,8 @@ class NotificationHandlerTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         notificationHandler = NotificationHandler(mockedSettings, mockedTextReader, mockedDeviceStatusChecker)
+
+        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
     }
 
     @Test
@@ -44,7 +46,7 @@ class NotificationHandlerTest {
 
         notificationHandler.handle(notification)
 
-        verify(mockedTextReader, times(1)).read(notification.text)
+        verify(mockedTextReader).read(notification.text)
     }
 
     @Test
@@ -55,7 +57,29 @@ class NotificationHandlerTest {
 
         notificationHandler.handle(notification)
 
-        verify(mockedTextReader, times(1)).read(notification.text)
+        verify(mockedTextReader).read(notification.text)
+    }
+
+    @Test
+    fun test_handle_checkReadNotifications_ifFalse_DoNothing() {
+        val notification = MockNotification.notification()
+
+        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(false)
+
+        notificationHandler.handle(notification)
+
+        verify(mockedTextReader, times(0)).read(notification.text)
+    }
+
+    @Test
+    fun test_handle_checkReadNotifications_ifTrue_work() {
+        val notification = MockNotification.notification()
+
+        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
+
+        notificationHandler.handle(notification)
+
+        verify(mockedTextReader).read(notification.text)
     }
 
 }

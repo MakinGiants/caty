@@ -4,12 +4,14 @@ import test.notificationreader.model.DeviceStatusChecker
 import test.notificationreader.model.TextReader
 import test.notificationreader.model.cache.Settings
 
-class NotificationHandler(private val settings: Settings,
-                          val textReader: TextReader,
-                          val deviceStatusChecker: DeviceStatusChecker) {
-    open fun handle(notification: Notification) {
+open class NotificationHandler(private val settings: Settings,
+                               val textReader: TextReader,
+                               val deviceStatusChecker: DeviceStatusChecker) {
 
-        val shouldRead = when (settings.playJustWithHeadphones) {
+    open fun handle(notification: Notification) {
+        var shouldRead = settings.readNotificationEnabled
+
+        shouldRead = shouldRead && when (settings.playJustWithHeadphones) {
             true -> deviceStatusChecker.headphonesConnected
             else -> true
         }
@@ -18,4 +20,5 @@ class NotificationHandler(private val settings: Settings,
             textReader.read(notification.text)
         }
     }
+
 }

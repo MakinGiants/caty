@@ -6,9 +6,16 @@
   android:padding="@dimen/padding">
 
   <Switch
+    android:id="@+id/readNotificationSwitch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/settings_read_notifications" />
+
+  <Switch
     android:id="@+id/justHeadphonesSwitch"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_medium"
     android:text="@string/settings_just_phones" />
 
   <Button

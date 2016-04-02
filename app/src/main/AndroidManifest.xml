@@ -9,8 +9,8 @@
     android:theme="@style/AppTheme">
 
     <activity
-      android:name=".setup.InitialSetupActivity"
-      android:label="Setup" />
+      android:name=".welcome.WelcomeActivity"
+      android:label="Welcome" />
 
     <activity
       android:name=".settings.SettingsActivity"

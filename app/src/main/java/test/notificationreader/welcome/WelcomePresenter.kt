@@ -1,12 +1,12 @@
-package test.notificationreader.setup
+package test.notificationreader.welcome
 
 import test.notificationreader.model.cache.Settings
 
-class InitialSetupPresenter {
-  private var mView: InitialSetupView? = null
+class WelcomePresenter {
+  private var mView: WelcomeView? = null
   private var mSettings: Settings? = null
 
-  fun onCreate(view: InitialSetupView, settings: Settings) {
+  fun onCreate(view: WelcomeView, settings: Settings) {
     mView = view
     mSettings = settings
   }

@@ -5,9 +5,9 @@
   <string name="accessibility_service_label">Tones</string>
   <string name="accessibility_service_description">This service lets know when there was a notification and its contents. On some Samsung phones (for example Galaxy S3, Galaxy Note) enabling our Accessibility Service causes the phone to speak actions like "folder opened" (-> enabling the TalkBack feature, even if it is turned off). Disable Samsung TTS in Settings > Apps > All Apps.</string>
 
-  <string name="initial_button_permission">Get permissions</string>
-  <string name="initial_button_try">Try</string>
-  <string name="initial_button_next">Next</string>
+  <string name="welcome_button_permission">Get permissions</string>
+  <string name="welcome_button_try">Try</string>
+  <string name="welcome_button_next">Next</string>
 
   <string name="settings_read_notifications">Read notifications</string>
   <string name="settings_just_phones">Read just with headphones</string>

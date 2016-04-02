@@ -3,7 +3,7 @@ package test.notificationreader.settings
 interface SettingsView {
   fun initViews()
 
-  fun startSettingsView()
+  fun startWelcomeView()
 
   fun setHeadphonesToggleCheck(checked: Boolean)
   fun setReadNotificationsCheck(checked: Boolean)

@@ -55,13 +55,13 @@ class SettingsPresenterTest {
   }
 
   @Test
-  fun test_onCreate_ifPermissionsNOTGranted_startSetupView() {
+  fun test_onCreate_ifPermissionsNOTGranted_startWelcomeView() {
     Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(false)
 
     presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
 
     verifyOnce(mockedView) {
-      startSettingsView()
+      startWelcomeView()
       close()
     }
   }

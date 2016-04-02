@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.settings_activity.*
 import test.notificationreader.R
 import test.notificationreader.model.cache.Settings
 import test.notificationreader.model.notifications.Notifier
-import test.notificationreader.setup.InitialSetupActivity
+import test.notificationreader.welcome.WelcomeActivity
 
 class SettingsActivity : AppCompatActivity(), SettingsView {
   private var mPresenter: SettingsPresenter? = null
@@ -33,8 +33,8 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
     tryButton.setOnClickListener({ mPresenter?.onButtonTryClick() })
   }
 
-  override fun startSettingsView() =
-      startActivity(Intent(applicationContext, InitialSetupActivity::class.java))
+  override fun startWelcomeView() =
+      startActivity(Intent(applicationContext, WelcomeActivity::class.java))
 
   override fun close() = finish()
 

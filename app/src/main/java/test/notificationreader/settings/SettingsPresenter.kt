@@ -20,7 +20,7 @@ open class SettingsPresenter {
 
       setOtherViewsEnabled(settings.readNotificationEnabled)
     } else {
-      view.startSettingsView()
+      view.startWelcomeView()
       view.close()
     }
   }

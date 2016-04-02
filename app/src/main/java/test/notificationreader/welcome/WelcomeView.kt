@@ -1,6 +1,6 @@
-package test.notificationreader.setup
+package test.notificationreader.welcome
 
-interface InitialSetupView {
+interface WelcomeView {
   fun startNotificationPermissionView()
 
   fun startSettingsView()

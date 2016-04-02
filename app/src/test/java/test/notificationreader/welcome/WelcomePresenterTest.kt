@@ -1,4 +1,4 @@
-package test.notificationreader.setup
+package test.notificationreader.welcome
 
 import net.paslavsky.kotlin.mockito.verifyOnce
 import net.paslavsky.kotlin.mockito.verifyZeroInteractions
@@ -10,16 +10,16 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import test.notificationreader.model.cache.Settings
 
-class InitialSetupPresenterTest {
-  @Mock lateinit var mockedView: InitialSetupView
+class WelcomePresenterTest {
+  @Mock lateinit var mockedView: WelcomeView
   @Mock lateinit var mockedSettings: Settings
-  lateinit var mPresenter: InitialSetupPresenter
+  lateinit var mPresenter: WelcomePresenter
 
   @Before
   fun setup() {
     MockitoAnnotations.initMocks(this)
 
-    mPresenter = InitialSetupPresenter()
+    mPresenter = WelcomePresenter()
     mPresenter.onCreate(mockedView, mockedSettings)
 
     Mockito.reset(mockedView)

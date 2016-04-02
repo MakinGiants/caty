@@ -13,7 +13,7 @@ open class SettingsPresenter {
         mSettings = settings
         mNotifier = notificationFabric
 
-        if (mSettings?.permissionGranted ?: false) {
+        if (mSettings?.notificationPermissionGranted ?: false) {
             view.initViews()
             view.setHeadphonesToggleCheck(settings.playJustWithHeadphones)
             view.setReadNotificationsCheck(settings.readNotificationEnabled)

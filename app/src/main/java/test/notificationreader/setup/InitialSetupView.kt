@@ -5,5 +5,5 @@ interface InitialSetupView {
 
     fun startSettingsView()
 
-    fun stop()
+    fun close()
 }

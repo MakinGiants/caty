@@ -12,106 +12,106 @@ import test.notificationreader.model.cache.Settings
 import test.notificationreader.model.notifications.Notifier
 
 class SettingsPresenterTest {
-    @Mock lateinit var mockedView: SettingsView
-    @Mock lateinit var mockedSettings: Settings
-    @Mock lateinit var mockedNotificationFabric: Notifier
-    lateinit var presenter: SettingsPresenter
+  @Mock lateinit var mockedView: SettingsView
+  @Mock lateinit var mockedSettings: Settings
+  @Mock lateinit var mockedNotificationFabric: Notifier
+  lateinit var presenter: SettingsPresenter
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
+  @Before
+  fun setUp() {
+    MockitoAnnotations.initMocks(this)
 
-        presenter = SettingsPresenter()
-        presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    presenter = SettingsPresenter()
+    presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
 
-        Mockito.reset(mockedView)
+    Mockito.reset(mockedView)
+  }
+
+  fun test_onCreate_updateGui(checked: Boolean) {
+    val spiedPresenter = spy(presenter)
+
+    Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(checked)
+    Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(true)
+    Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(checked)
+
+    spiedPresenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+
+    verifyOnce(mockedView) {
+      initViews()
+      setHeadphonesToggleCheck(checked)
+      setReadNotificationsCheck(checked)
     }
+    verify(spiedPresenter).setOtherViewsEnabled(checked)
+  }
 
-    fun test_onCreate_updateGui(checked: Boolean) {
-        val spiedPresenter = spy(presenter)
+  @Test
+  fun test_onCreate_updateGui_withTrue() {
+    test_onCreate_updateGui(true);
+  }
 
-        Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(checked)
-        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(true)
-        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(checked)
+  @Test
+  fun test_onCreate_updateGui_withFalse() {
+    test_onCreate_updateGui(false);
+  }
 
-        spiedPresenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+  @Test
+  fun test_onCreate_ifPermissionsNOTGranted_startWelcomeView() {
+    Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(false)
 
-        verifyOnce(mockedView) {
-            initViews()
-            setHeadphonesToggleCheck(checked)
-            setReadNotificationsCheck(checked)
-        }
-        verify(spiedPresenter).setOtherViewsEnabled(checked)
+    presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+
+    verifyOnce(mockedView) {
+      startWelcomeView()
+      close()
     }
+  }
 
-    @Test
-    fun test_onCreate_updateGui_withTrue() {
-        test_onCreate_updateGui(true);
-    }
+  @Test
+  fun test_onSwitchPlayJustWithHeadphonesClick_updateSettings_andDisableOthers() {
+    presenter.onSwitchPlayJustWithHeadphonesClick(false)
+    verify(mockedSettings).playJustWithHeadphones = false
+  }
 
-    @Test
-    fun test_onCreate_updateGui_withFalse() {
-        test_onCreate_updateGui(false);
-    }
+  fun test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers(enabled: Boolean) {
+    val spiedPresenter = spy(presenter)
+    spiedPresenter.onSwitchReadNotificationEnabledClick(enabled)
 
-    @Test
-    fun test_onCreate_ifPermissionsNOTGranted_startSetupView() {
-        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(false)
+    verify(mockedSettings).readNotificationEnabled = enabled
+    verify(spiedPresenter).setOtherViewsEnabled(enabled)
+  }
 
-        presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+  @Test
+  fun test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers_withFalse() {
+    test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers(false)
+  }
 
-        verifyOnce(mockedView) {
-            startSettingsView()
-            close()
-        }
-    }
+  @Test
+  fun test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers_withTrue() {
+    test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers(true)
+  }
 
-    @Test
-    fun test_onSwitchPlayJustWithHeadphonesClick_updateSettings_andDisableOthers() {
-        presenter.onSwitchPlayJustWithHeadphonesClick(false)
-        verify(mockedSettings).playJustWithHeadphones = false
-    }
+  @Test
+  fun test_onButtonTryClick_notify() {
+    presenter.onButtonTryClick()
+    verify(mockedNotificationFabric).notify("Notification Test",
+        "Notification test reader: This is the first try for a notification.")
+  }
 
-    fun test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers(enabled: Boolean) {
-        val spiedPresenter = spy(presenter)
-        spiedPresenter.onSwitchReadNotificationEnabledClick(enabled)
+  fun test_setOtherViewsEnabled_updateViews(enabled: Boolean) {
+    val spiedPresenter = spy(presenter)
 
-        verify(mockedSettings).readNotificationEnabled = enabled
-        verify(spiedPresenter).setOtherViewsEnabled(enabled)
-    }
+    spiedPresenter.setOtherViewsEnabled(enabled)
 
-    @Test
-    fun test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers_withFalse() {
-        test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers(false)
-    }
+    verify(mockedView).setEnabledSwitchPlayJustWithHeadphones(enabled)
+  }
 
-    @Test
-    fun test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers_withTrue() {
-        test_onSwitchReadNotificationEnabledClick_updateSettings_andEnableOthers(true)
-    }
+  @Test
+  fun test_setOtherViewsEnabled_updateViews_withTrue() {
+    test_setOtherViewsEnabled_updateViews(true)
+  }
 
-    @Test
-    fun test_onButtonTryClick_notify() {
-        presenter.onButtonTryClick()
-        verify(mockedNotificationFabric).notify("Notification Test",
-                "Notification test reader: This is the first try for a notification.")
-    }
-
-    fun test_setOtherViewsEnabled_updateViews(enabled: Boolean) {
-        val spiedPresenter = spy(presenter)
-
-        spiedPresenter.setOtherViewsEnabled(enabled)
-
-        verify(mockedView).setEnabledSwitchPlayJustWithHeadphones(enabled)
-    }
-
-    @Test
-    fun test_setOtherViewsEnabled_updateViews_withTrue() {
-        test_setOtherViewsEnabled_updateViews(true)
-    }
-
-    @Test
-    fun test_setOtherViewsEnabled_updateViews_withFalse() {
-        test_setOtherViewsEnabled_updateViews(false)
-    }
+  @Test
+  fun test_setOtherViewsEnabled_updateViews_withFalse() {
+    test_setOtherViewsEnabled_updateViews(false)
+  }
 }

@@ -1,9 +1,9 @@
 package test.notificationreader.setup
 
 interface InitialSetupView {
-    fun startNotificationPermissionView()
+  fun startNotificationPermissionView()
 
-    fun startSettingsView()
+  fun startSettingsView()
 
-    fun close()
+  fun close()
 }

@@ -17,30 +17,30 @@ import test.notificationreader.model.notifications.NotificationHandler
  */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 class NotificationService : NotificationListenerService() {
-    internal var mNotificationActor: NotificationHandler? = null
+  internal var mNotificationActor: NotificationHandler? = null
 
-    override fun onBind(intent: Intent): IBinder? {
-        mNotificationActor = NotificationHandler(Settings(applicationContext),
-                TextReader(applicationContext), DeviceStatusChecker(applicationContext))
+  override fun onBind(intent: Intent): IBinder? {
+    mNotificationActor = NotificationHandler(Settings(applicationContext),
+        TextReader(applicationContext), DeviceStatusChecker(applicationContext))
 
-        return super.onBind(intent)
+    return super.onBind(intent)
+  }
+
+  override fun onNotificationPosted(sbn: StatusBarNotification) {
+    val text: String
+
+    if (sbn.notification.tickerText == null) {
+      text = sbn.notification.extras.get("android.text") as String? ?: "Empty"
+    } else {
+      text = sbn.notification.tickerText.toString()
     }
 
-    override fun onNotificationPosted(sbn: StatusBarNotification) {
-        val text: String
+    val aPackage = sbn.packageName
 
-        if (sbn.notification.tickerText == null) {
-            text = sbn.notification.extras.get("android.text") as String? ?: "Empty"
-        } else {
-            text = sbn.notification.tickerText.toString()
-        }
+    val notification = Notification.with(text, aPackage)
+    mNotificationActor?.handle(notification)
+  }
 
-        val aPackage = sbn.packageName
-
-        val notification = Notification.with(text, aPackage)
-        mNotificationActor?.handle(notification)
-    }
-
-    override fun onNotificationRemoved(sbn: StatusBarNotification) {
-    }
+  override fun onNotificationRemoved(sbn: StatusBarNotification) {
+  }
 }

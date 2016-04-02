@@ -12,74 +12,74 @@ import test.notificationreader.model.TextReader
 import test.notificationreader.model.cache.Settings
 
 class NotificationHandlerTest {
-    @Mock lateinit var mockedTextReader: TextReader
-    @Mock lateinit var mockedSettings: Settings
-    @Mock lateinit var mockedDeviceStatusChecker: DeviceStatusChecker
-    lateinit var notificationHandler: NotificationHandler
+  @Mock lateinit var mockedTextReader: TextReader
+  @Mock lateinit var mockedSettings: Settings
+  @Mock lateinit var mockedDeviceStatusChecker: DeviceStatusChecker
+  lateinit var notificationHandler: NotificationHandler
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-        notificationHandler = NotificationHandler(mockedSettings, mockedTextReader, mockedDeviceStatusChecker)
+  @Before
+  fun setUp() {
+    MockitoAnnotations.initMocks(this)
+    notificationHandler = NotificationHandler(mockedSettings, mockedTextReader, mockedDeviceStatusChecker)
 
-        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
-    }
+    Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
+  }
 
-    @Test
-    fun test_handle_checkJustWithHeadphonesSettings_ifPlayJustWithHeadphones_ifNoHeadphones_dontRead() {
-        val notification = MockNotification.notification()
+  @Test
+  fun test_handle_checkJustWithHeadphonesSettings_ifPlayJustWithHeadphones_ifNoHeadphones_dontRead() {
+    val notification = MockNotification.notification()
 
-        Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
-        Mockito.`when`(mockedDeviceStatusChecker.headphonesConnected).thenReturn(false)
+    Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
+    Mockito.`when`(mockedDeviceStatusChecker.headphonesConnected).thenReturn(false)
 
-        notificationHandler.handle(notification)
+    notificationHandler.handle(notification)
 
-        verify(mockedTextReader, times(0)).read(notification.text)
-    }
+    verify(mockedTextReader, times(0)).read(notification.text)
+  }
 
-    @Test
-    fun test_handle_checkJustWithHeadphonesSettings_ifPlayJustWithHeadphones_ifHeadphones_read() {
-        val notification = MockNotification.notification()
+  @Test
+  fun test_handle_checkJustWithHeadphonesSettings_ifPlayJustWithHeadphones_ifHeadphones_read() {
+    val notification = MockNotification.notification()
 
-        Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
-        Mockito.`when`(mockedDeviceStatusChecker.headphonesConnected).thenReturn(true)
+    Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
+    Mockito.`when`(mockedDeviceStatusChecker.headphonesConnected).thenReturn(true)
 
-        notificationHandler.handle(notification)
+    notificationHandler.handle(notification)
 
-        verify(mockedTextReader).read(notification.text)
-    }
+    verify(mockedTextReader).read(notification.text)
+  }
 
-    @Test
-    fun test_handle_checkJustWithHeadphonesSettings_ifDontPlayJustWithHeadphones_readAlways() {
-        val notification = MockNotification.notification()
+  @Test
+  fun test_handle_checkJustWithHeadphonesSettings_ifDontPlayJustWithHeadphones_readAlways() {
+    val notification = MockNotification.notification()
 
-        Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(false)
+    Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(false)
 
-        notificationHandler.handle(notification)
+    notificationHandler.handle(notification)
 
-        verify(mockedTextReader).read(notification.text)
-    }
+    verify(mockedTextReader).read(notification.text)
+  }
 
-    @Test
-    fun test_handle_checkReadNotifications_ifFalse_DoNothing() {
-        val notification = MockNotification.notification()
+  @Test
+  fun test_handle_checkReadNotifications_ifFalse_DoNothing() {
+    val notification = MockNotification.notification()
 
-        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(false)
+    Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(false)
 
-        notificationHandler.handle(notification)
+    notificationHandler.handle(notification)
 
-        verify(mockedTextReader, times(0)).read(notification.text)
-    }
+    verify(mockedTextReader, times(0)).read(notification.text)
+  }
 
-    @Test
-    fun test_handle_checkReadNotifications_ifTrue_work() {
-        val notification = MockNotification.notification()
+  @Test
+  fun test_handle_checkReadNotifications_ifTrue_work() {
+    val notification = MockNotification.notification()
 
-        Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
+    Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
 
-        notificationHandler.handle(notification)
+    notificationHandler.handle(notification)
 
-        verify(mockedTextReader).read(notification.text)
-    }
+    verify(mockedTextReader).read(notification.text)
+  }
 
 }

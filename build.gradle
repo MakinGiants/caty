@@ -1,11 +1,17 @@
 buildscript {
-  ext.deps = [supportLib: "23.2.1", kotlin: "1.0.1"]
+  ext {
+    versions = [supportLib: "23.2.1", kotlin: "1.0.1"]
 
+    deps = [supportLib  : "com.android.support:appcompat-v7:$versions.supportLib",
+            kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"]
+
+    plugs = [kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"]
+  }
   repositories {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.1.0-alpha4'
+    classpath 'com.android.tools.build:gradle:2.1.0-alpha5'
   }
 }
 

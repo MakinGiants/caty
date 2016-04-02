@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.initial_setup_activity.*
 import test.notificationreader.R
 import test.notificationreader.model.cache.Settings
-import test.notificationreader.model.notifications.Notifier
 import test.notificationreader.settings.SettingsActivity
 import android.provider.Settings as ProviderSettings
 
@@ -19,10 +18,8 @@ class InitialSetupActivity : AppCompatActivity(), InitialSetupView {
         setContentView(R.layout.initial_setup_activity)
 
         mPresenter = InitialSetupPresenter()
-        mPresenter?.onCreate(this, Notifier(applicationContext), Settings(applicationContext))
+        mPresenter?.onCreate(this, Settings(applicationContext))
 
-        nextButton.setOnClickListener { mPresenter?.onButtonNextClick() }
-        tryButton.setOnClickListener { mPresenter?.onButtonTryClick() }
         permissionButton.setOnClickListener { mPresenter?.onButtonNotificationPermissionClick() }
     }
 
@@ -43,7 +40,7 @@ class InitialSetupActivity : AppCompatActivity(), InitialSetupView {
         startActivity(Intent(action))
     }
 
-    override fun stop() = finish()
+    override fun close() = finish()
     //</editor-fold>
 
 }

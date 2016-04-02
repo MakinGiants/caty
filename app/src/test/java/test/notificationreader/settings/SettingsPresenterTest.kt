@@ -31,7 +31,7 @@ class SettingsPresenterTest {
         val spiedPresenter = spy(presenter)
 
         Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(checked)
-        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(true)
+        Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(true)
         Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(checked)
 
         spiedPresenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
@@ -56,7 +56,7 @@ class SettingsPresenterTest {
 
     @Test
     fun test_onCreate_ifPermissionsNOTGranted_startSetupView() {
-        Mockito.`when`(mockedSettings.permissionGranted).thenReturn(false)
+        Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(false)
 
         presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
 

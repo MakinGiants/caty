@@ -1,5 +1,6 @@
 package test.notificationreader.model.notifications
 
+import net.paslavsky.kotlin.mockito.verifyNoMoreInteractions
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -80,6 +81,17 @@ class NotificationHandlerTest {
     notificationHandler.handle(notification)
 
     verify(mockedTextReader).read(notification.text)
+  }
+
+  @Test
+  fun test_handle_ifNotificationDontHaveSound_doNothing() {
+    val notification = MockNotification.notification(haveSound = false)
+
+    Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
+
+    notificationHandler.handle(notification)
+
+    verifyNoMoreInteractions(mockedTextReader)
   }
 
 }

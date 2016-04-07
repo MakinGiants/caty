@@ -26,11 +26,14 @@ class AccessibilityListenerService : AccessibilityService() {
   }
 
   override fun onAccessibilityEvent(event: AccessibilityEvent) {
-    val text = getEventText(event)
-    val aPackage = event.packageName.toString()
+    if (event.eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
+      val text = getEventText(event)
+      val aPackage = event.packageName.toString()
 
-    val notification = Notification.with(text, aPackage)
-    mNotificationActor?.handle(notification)
+      // TODO: Check when an event should sound or not
+      val notification = Notification.with(text, aPackage)
+      mNotificationActor?.handle(notification)
+    }
   }
 
   override fun onInterrupt() {

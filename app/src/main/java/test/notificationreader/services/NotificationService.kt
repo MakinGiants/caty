@@ -9,6 +9,7 @@ import android.service.notification.StatusBarNotification
 import test.notificationreader.model.DeviceStatusChecker
 import test.notificationreader.model.TextReader
 import test.notificationreader.model.cache.Settings
+import test.notificationreader.model.extensions.text
 import test.notificationreader.model.notifications.Notification
 import test.notificationreader.model.notifications.NotificationHandler
 
@@ -27,17 +28,7 @@ class NotificationService : NotificationListenerService() {
   }
 
   override fun onNotificationPosted(sbn: StatusBarNotification) {
-    val text: String
-
-    if (sbn.notification.tickerText == null) {
-      text = sbn.notification.extras.get("android.text") as String? ?: "Empty"
-    } else {
-      text = sbn.notification.tickerText.toString()
-    }
-
-    val aPackage = sbn.packageName
-
-    val notification = Notification.with(text, aPackage)
+    val notification = Notification.with(sbn.text, sbn.packageName, sbn.notification.sound != null)
     mNotificationActor?.handle(notification)
   }
 

@@ -9,7 +9,7 @@ open class NotificationHandler(private val settings: Settings,
                                val deviceStatusChecker: DeviceStatusChecker) {
 
     open fun handle(notification: Notification) {
-        var shouldRead = settings.readNotificationEnabled
+        var shouldRead = settings.readNotificationEnabled && notification.haveSound
 
         shouldRead = shouldRead && when (settings.playJustWithHeadphones) {
             true -> deviceStatusChecker.headphonesConnected

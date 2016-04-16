@@ -1,6 +1,7 @@
 package test.notificationreader.model.notifications
 
 import net.paslavsky.kotlin.mockito.verifyNoMoreInteractions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -73,6 +74,17 @@ class NotificationHandlerTest {
   }
 
   @Test
+  fun test_handle_ifNotificationDontHaveSound_doNothing() {
+    val notification = MockNotification.notification(haveSound = false)
+
+    Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
+
+    notificationHandler.handle(notification)
+
+    verifyNoMoreInteractions(mockedTextReader)
+  }
+
+  @Test
   fun test_handle_checkReadNotifications_ifTrue_work() {
     val notification = MockNotification.notification()
 
@@ -84,14 +96,16 @@ class NotificationHandlerTest {
   }
 
   @Test
-  fun test_handle_ifNotificationDontHaveSound_doNothing() {
-    val notification = MockNotification.notification(haveSound = false)
+  fun test_handle_multipleMessagesFaster_joinMessages() {
+    val notification = MockNotification.messageNotification("James", "text 1")
+    val notification2 = MockNotification.messageNotification("James", "text 2")
 
     Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
 
-    notificationHandler.handle(notification)
+    notificationHandler.parseWithDelay(notification)
+    val pair = notificationHandler.parseWithDelay(notification2).toBlocking().first().first()
 
-    verifyNoMoreInteractions(mockedTextReader)
+    assertThat(pair.first).isEqualTo("James")
+    assertThat(pair.second).isEqualTo("text 1 text 2")
   }
-
 }

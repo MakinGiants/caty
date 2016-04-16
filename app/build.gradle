@@ -38,6 +38,7 @@ android {
 dependencies {
   compile deps.supportLib
   compile deps.kotlinStdLib
+  compile 'io.reactivex:rxkotlin:0.55.0'
 
   compile files('libs/mockito-kt-0.0.5-beta.jar')
   testCompile 'junit:junit:4.12'

@@ -31,7 +31,7 @@ open class SettingsPresenter {
 
   fun onButtonTryClick() {
     mNotifier?.notify("Notification Test",
-        "Notification test reader: This is the first try for a notification.")
+        "Ultra intelligent reader: I think this is the beginning of a great relationship.")
   }
 
   fun onSwitchReadNotificationEnabledClick(checked: Boolean) {

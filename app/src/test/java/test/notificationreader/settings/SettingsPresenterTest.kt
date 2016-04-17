@@ -6,6 +6,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.anyString
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import test.notificationreader.model.cache.Settings
@@ -93,8 +94,7 @@ class SettingsPresenterTest {
   @Test
   fun test_onButtonTryClick_notify() {
     presenter.onButtonTryClick()
-    verify(mockedNotificationFabric).notify("Notification Test",
-        "Notification test reader: This is the first try for a notification.")
+    verify(mockedNotificationFabric).notify(anyString(), anyString())
   }
 
   fun test_setOtherViewsEnabled_updateViews(enabled: Boolean) {

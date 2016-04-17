@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="test.notificationreader">
+  package="com.makingiants.caty">
 
   <application
     android:allowBackup="true"
@@ -8,13 +8,9 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity
-      android:name=".welcome.WelcomeActivity"
-      android:label="Welcome" />
+    <activity android:name=".welcome.WelcomeActivity" />
 
-    <activity
-      android:name=".settings.SettingsActivity"
-      android:label="Settings">
+    <activity android:name=".settings.SettingsActivity">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

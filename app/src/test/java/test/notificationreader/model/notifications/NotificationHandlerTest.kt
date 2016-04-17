@@ -1,5 +1,6 @@
 package test.notificationreader.model.notifications
 
+import net.paslavsky.kotlin.mockito.spy
 import net.paslavsky.kotlin.mockito.verifyNoMoreInteractions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -42,24 +43,26 @@ class NotificationHandlerTest {
   @Test
   fun test_handle_checkJustWithHeadphonesSettings_ifPlayJustWithHeadphones_ifHeadphones_read() {
     val notification = MockNotification.notification()
+    val spiedNotificationHandler = spy(notificationHandler)
 
     Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(true)
     Mockito.`when`(mockedDeviceStatusChecker.headphonesConnected).thenReturn(true)
 
-    notificationHandler.handle(notification)
+    spiedNotificationHandler.handle(notification)
 
-    verify(mockedTextReader).read(notification.text)
+    verify(spiedNotificationHandler).parseWithDelay(notification)
   }
 
   @Test
   fun test_handle_checkJustWithHeadphonesSettings_ifDontPlayJustWithHeadphones_readAlways() {
     val notification = MockNotification.notification()
+    val spiedNotificationHandler = spy(notificationHandler)
 
     Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(false)
 
-    notificationHandler.handle(notification)
+    spiedNotificationHandler.handle(notification)
 
-    verify(mockedTextReader).read(notification.text)
+    verify(spiedNotificationHandler).parseWithDelay(notification)
   }
 
   @Test
@@ -87,12 +90,13 @@ class NotificationHandlerTest {
   @Test
   fun test_handle_checkReadNotifications_ifTrue_work() {
     val notification = MockNotification.notification()
+    val spiedNotificationHandler = spy(notificationHandler)
 
     Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(true)
 
-    notificationHandler.handle(notification)
+    spiedNotificationHandler.handle(notification)
 
-    verify(mockedTextReader).read(notification.text)
+    verify(spiedNotificationHandler).parseWithDelay(notification)
   }
 
   @Test

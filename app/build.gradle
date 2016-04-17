@@ -20,7 +20,7 @@ android {
   buildToolsVersion setup.buildToolsVersion
 
   defaultConfig {
-    applicationId "test.notificationreader"
+    applicationId "com.makingiants.caty"
     minSdkVersion setup.minSdkVersion
     targetSdkVersion setup.targetSdkVersion
     versionCode 1

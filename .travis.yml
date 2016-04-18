@@ -23,6 +23,8 @@ after_success:
   - codecov
 
 script:
+    - echo "apiKey=$FABRIC_API_KEY" >> app/fabric.properties
+    - echo "apiSecret=$FABRIC_API_SECRET" >> app/fabric.properties
     - ./gradlew testReleaseUnitTestCoverage --stacktrace
 
 before_cache:

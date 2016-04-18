@@ -1,5 +1,7 @@
 app/gradle.properties
 app/newrelic.properties
+app/fabric.properties
+
 captures/
 
 # Created by https://www.gitignore.io

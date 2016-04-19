@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string-array name="settings_test">
+    <item>Me: I believe you are beautiful</item>
+    <item>Me: I\'m starting to feel that this is the beginning of a great relationship</item>
+    <item>Me: Yes, I\'m here reading your notifications</item>
+  </string-array>
+
+</resources>

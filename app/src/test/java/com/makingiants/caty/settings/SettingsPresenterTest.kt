@@ -93,7 +93,7 @@ class SettingsPresenterTest {
 
   @Test
   fun test_onButtonTryClick_notify() {
-    presenter.onButtonTryClick()
+    presenter.onButtonTryClick("Test")
     verify(mockedNotificationFabric).notify(anyString(), anyString())
   }
 

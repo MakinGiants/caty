@@ -29,8 +29,8 @@ open class SettingsPresenter {
     mSettings?.playJustWithHeadphones = checked
   }
 
-  fun onButtonTryClick() {
-    mNotifier?.notify("Notification Test", "Caty: I think you are so great.")
+  fun onButtonTryClick(text: String) {
+    mNotifier?.notify("Test", text)
   }
 
   fun onSwitchReadNotificationEnabledClick(checked: Boolean) {

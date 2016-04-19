@@ -8,6 +8,7 @@ import com.makingiants.caty.model.cache.Settings
 import com.makingiants.caty.model.notifications.Notifier
 import com.makingiants.caty.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.settings_activity.*
+import java.util.*
 
 class SettingsActivity : AppCompatActivity(), SettingsView {
   private var mPresenter: SettingsPresenter? = null
@@ -31,7 +32,10 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
       mPresenter?.onSwitchReadNotificationEnabledClick(check)
     }
 
-    tryButton.setOnClickListener({ mPresenter?.onButtonTryClick() })
+    tryButton.setOnClickListener({
+      val testStrings = resources.getStringArray(R.array.settings_test)
+      mPresenter?.onButtonTryClick(testStrings[Random().nextInt(testStrings.size)])
+    })
   }
 
   override fun startWelcomeView() =

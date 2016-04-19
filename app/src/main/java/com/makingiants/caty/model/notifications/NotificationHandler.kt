@@ -1,10 +1,10 @@
 package com.makingiants.caty.model.notifications
 
-import rx.Observable
-import rx.Subscription
 import com.makingiants.caty.model.DeviceStatusChecker
 import com.makingiants.caty.model.TextReader
 import com.makingiants.caty.model.cache.Settings
+import rx.Observable
+import rx.Subscription
 import java.util.concurrent.TimeUnit
 
 open class NotificationHandler(private val settings: Settings,
@@ -25,7 +25,7 @@ open class NotificationHandler(private val settings: Settings,
     if (shouldRead) {
       readSubscription?.unsubscribe()
       readSubscription = parseWithDelay(notification).subscribe({
-        it.forEach { textReader.read("${it.first}: ${it.second}") }
+        it.forEach { textReader.read("${it.first}. ${it.second}") }
       })
     }
   }
@@ -35,13 +35,9 @@ open class NotificationHandler(private val settings: Settings,
 
     return Observable.fromCallable { notifications }
         .delay(500, TimeUnit.MILLISECONDS)
-        .map { it.groupBy { (it as? MessageNotification)?.name ?: it.appPackage ?: "" } }
-        .map {
-          it.map {
-            val text = it.value.map { (it as? MessageNotification)?.message ?: it.text }.joinToString(" ")
-            Pair(it.key, text)
-          }
-        }
+        .map { it.groupBy { (it as? MessageNotification)?.user ?: it.title } }
+        .map { it.map { Pair(it.key, it.value.map { it.text }.joinToString(" ")) } }
+        .doOnEach { notifications.clear() }
   }
 
 }

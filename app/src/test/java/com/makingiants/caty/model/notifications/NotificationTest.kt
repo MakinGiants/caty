@@ -5,28 +5,27 @@ import org.junit.Test
 
 class NotificationTest {
   @Test
-  fun buildMessageNotification() {
-    val notification = Notification.with("Maria: hello Daniel", "facebook.messenger")
+  fun textWithDoublePoints_buildMessageNotification() {
+    val notification = Notification.with("Maria: hello Daniel", "Facebook", "facebook.messenger")
 
     assertThat(notification).isInstanceOf(MessageNotification::class.java)
 
     val messageNotification = notification as MessageNotification
-    assertThat(messageNotification.name).isEqualTo("Maria")
-    assertThat(messageNotification.message).isEqualTo("hello Daniel")
+    assertThat(messageNotification.user).isEqualTo("Maria")
+    assertThat(messageNotification.text).isEqualTo("hello Daniel")
   }
 
   @Test
-  fun buildSystemNotification() {
-    val notification = Notification.with("Something happened with phone", "android.vending")
-    assertThat(notification).isInstanceOf(SystemNotification::class.java)
-  }
-
-  @Test
-  fun buildOtherNotification() {
-    val notification = Notification.with("Maria hello Daniel", "facebook.messenger")
+  fun textWithoutDoublePoints_buildOtherNotification() {
+    val notification = Notification.with("Maria hello Daniel", "Facebook", "facebook.messenger")
 
     assertThat(notification).isInstanceOf(Notification::class.java)
     assertThat(notification).isNotInstanceOf(MessageNotification::class.java)
-    assertThat(notification).isNotInstanceOf(SystemNotification::class.java)
+  }
+
+  @Test
+  fun messageNotification_textReturnMessage() {
+    val notification = MockNotification.messageNotification("Maria", "hello Daniel")
+    assertThat(notification.text).isEqualTo("hello Daniel")
   }
 }

@@ -1,5 +1,7 @@
 package com.makingiants.caty.settings
 
+import com.makingiants.caty.model.cache.Settings
+import com.makingiants.caty.model.notifications.Notifier
 import net.paslavsky.kotlin.mockito.spy
 import net.paslavsky.kotlin.mockito.verifyOnce
 import org.junit.Before
@@ -9,8 +11,6 @@ import org.mockito.Mockito
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-import com.makingiants.caty.model.cache.Settings
-import com.makingiants.caty.model.notifications.Notifier
 
 class SettingsPresenterTest {
   @Mock lateinit var mockedView: SettingsView
@@ -93,7 +93,7 @@ class SettingsPresenterTest {
 
   @Test
   fun test_onButtonTryClick_notify() {
-    presenter.onButtonTryClick()
+    presenter.onButtonTryClick("Test")
     verify(mockedNotificationFabric).notify(anyString(), anyString())
   }
 

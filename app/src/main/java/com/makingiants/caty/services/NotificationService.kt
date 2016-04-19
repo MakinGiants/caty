@@ -10,6 +10,7 @@ import com.makingiants.caty.model.DeviceStatusChecker
 import com.makingiants.caty.model.TextReader
 import com.makingiants.caty.model.cache.Settings
 import com.makingiants.caty.model.extensions.text
+import com.makingiants.caty.model.extensions.title
 import com.makingiants.caty.model.notifications.Notification
 import com.makingiants.caty.model.notifications.NotificationHandler
 
@@ -28,7 +29,8 @@ class NotificationService : NotificationListenerService() {
   }
 
   override fun onNotificationPosted(sbn: StatusBarNotification) {
-    val notification = Notification.with(sbn.text, sbn.packageName, sbn.notification.sound != null)
+    val notification = Notification.with(sbn.text, sbn.title, sbn.packageName,
+        sbn.notification.sound != null)
     mNotificationActor?.handle(notification)
   }
 

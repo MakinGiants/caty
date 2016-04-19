@@ -35,13 +35,9 @@ open class NotificationHandler(private val settings: Settings,
 
     return Observable.fromCallable { notifications }
         .delay(500, TimeUnit.MILLISECONDS)
-        .map { it.groupBy { (it as? MessageNotification)?.name ?: it.appPackage ?: "" } }
-        .map {
-          it.map {
-            val text = it.value.map { (it as? MessageNotification)?.message ?: it.text }.joinToString(" ")
-            Pair(it.key, text)
-          }
-        }.doOnEach { notifications.clear() }
+        .map { it.groupBy { (it as? MessageNotification)?.user ?: it.title } }
+        .map { it.map { Pair(it.key, it.value.map { it.text }.joinToString(" ")) } }
+        .doOnEach { notifications.clear() }
   }
 
 }

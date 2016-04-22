@@ -28,6 +28,7 @@ open class NotificationHandler(private val settings: Settings,
     }
 
     if (shouldRead) {
+      //TODO: Enqueue notifications so read is not paused by others
       readSubscription?.unsubscribe()
       readSubscription = parseWithDelay(notification).subscribe({
         it.forEach { textReader.read("${it.first}. ${it.second}") }

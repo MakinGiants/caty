@@ -34,6 +34,7 @@ class SettingsPresenterTest {
     Mockito.`when`(mockedSettings.playJustWithHeadphones).thenReturn(checked)
     Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(true)
     Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(checked)
+    Mockito.`when`(mockedSettings.readJustMessages).thenReturn(checked)
 
     spiedPresenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
 
@@ -41,6 +42,7 @@ class SettingsPresenterTest {
       initViews()
       setHeadphonesToggleCheck(checked)
       setReadNotificationsCheck(checked)
+      setReadOnlyMessageNotificationsCheck(checked)
     }
     verify(spiedPresenter).setOtherViewsEnabled(checked)
   }
@@ -102,7 +104,10 @@ class SettingsPresenterTest {
 
     spiedPresenter.setOtherViewsEnabled(enabled)
 
-    verify(mockedView).setEnabledSwitchPlayJustWithHeadphones(enabled)
+    verifyOnce(mockedView) {
+      setEnabledSwitchPlayJustWithHeadphones(enabled)
+      setEnabledSwitchPlayJustMessageNotifications(enabled)
+    }
   }
 
   @Test

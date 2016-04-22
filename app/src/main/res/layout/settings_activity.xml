@@ -12,6 +12,13 @@
     android:text="@string/settings_read_notifications" />
 
   <Switch
+    android:id="@+id/justMessageNotificationsSwitch"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_medium"
+    android:text="@string/settings_just_messages" />
+
+  <Switch
     android:id="@+id/justHeadphonesSwitch"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

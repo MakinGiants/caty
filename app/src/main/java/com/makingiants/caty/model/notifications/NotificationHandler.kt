@@ -22,6 +22,11 @@ open class NotificationHandler(private val settings: Settings,
       else -> true
     }
 
+    shouldRead = shouldRead && when (settings.readJustMessages) {
+      true -> notification is MessageNotification
+      else -> true
+    }
+
     if (shouldRead) {
       readSubscription?.unsubscribe()
       readSubscription = parseWithDelay(notification).subscribe({

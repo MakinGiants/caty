@@ -17,6 +17,7 @@ open class SettingsPresenter {
       view.initViews()
       view.setHeadphonesToggleCheck(settings.playJustWithHeadphones)
       view.setReadNotificationsCheck(settings.readNotificationEnabled)
+      view.setReadOnlyMessageNotificationsCheck(settings.readJustMessages)
 
       setOtherViewsEnabled(settings.readNotificationEnabled)
     } else {
@@ -39,6 +40,9 @@ open class SettingsPresenter {
   }
 
   open fun setOtherViewsEnabled(enabled: Boolean) {
-    mView?.setEnabledSwitchPlayJustWithHeadphones(enabled)
+    mView?.apply {
+      setEnabledSwitchPlayJustWithHeadphones(enabled)
+      setEnabledSwitchPlayJustMessageNotifications(enabled)
+    }
   }
 }

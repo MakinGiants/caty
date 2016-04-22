@@ -19,7 +19,7 @@ open class TextReader(context: Context) : TextToSpeech.OnInitListener {
 
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       mBundle = Bundle().apply {
-        putString(KEY_PARAM_STREAM, STREAM_VOICE_CALL.toString())
+        putInt(KEY_PARAM_STREAM, STREAM_VOICE_CALL)
       }
     } else {
       mParams = hashMapOf<String, String>(Pair(KEY_PARAM_STREAM, STREAM_VOICE_CALL.toString()));

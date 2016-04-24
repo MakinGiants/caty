@@ -1,7 +1,7 @@
 # Caty - Notification Reader
 
-[![Build Status](https://travis-ci.org/MakinGiants/caty_notification_reader.svg?branch=develop)](https://travis-ci.org/MakinGiants/caty_notification_reader)
-[![codecov.io](https://codecov.io/github/MakinGiants/caty_notification_reader/coverage.svg?branch=develop)](https://codecov.io/github/MakinGiants/caty_notification_reader?branch=develop)
+[![Build Status](https://travis-ci.org/MakinGiants/caty.svg?branch=develop)](https://travis-ci.org/MakinGiants/caty)
+[![codecov.io](https://codecov.io/github/MakinGiants/caty/coverage.svg?branch=develop)](https://codecov.io/github/MakinGiants/caty?branch=develop)
 
 Android app that read notifications.
 

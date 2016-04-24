@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.settings_activity.*
 import java.util.*
 
 class SettingsActivity : AppCompatActivity(), SettingsView {
+
   private var mPresenter: SettingsPresenter? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +52,16 @@ class SettingsActivity : AppCompatActivity(), SettingsView {
     readNotificationSwitch.isChecked = checked
   }
 
+  override fun setReadOnlyMessageNotificationsCheck(checked: Boolean) {
+    justMessageNotificationsSwitch.isChecked = checked
+  }
+
   override fun setEnabledSwitchPlayJustWithHeadphones(enabled: Boolean) {
     justHeadphonesSwitch.isEnabled = enabled
+  }
+
+  override fun setEnabledSwitchPlayJustMessageNotifications(enabled: Boolean) {
+    justMessageNotificationsSwitch.isEnabled = enabled
   }
 
 }

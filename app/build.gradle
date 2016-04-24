@@ -18,6 +18,9 @@ apply plugin: 'com.github.ben-manes.versions'
 apply from: 'jacoco.gradle'
 apply plugin: 'io.fabric'
 
+def appVersionCode = 1
+def appVersionName = "0.5"
+
 android {
   compileSdkVersion setup.compileSdkVersion
   buildToolsVersion setup.buildToolsVersion
@@ -26,8 +29,10 @@ android {
     applicationId "com.makingiants.caty"
     minSdkVersion setup.minSdkVersion
     targetSdkVersion setup.targetSdkVersion
-    versionCode 1
-    versionName "0.5"
+    versionCode appVersionCode
+    versionName appVersionName
+
+    project.archivesBaseName = "caty-${appVersionCode}-${appVersionCode}"
   }
 
   buildTypes {

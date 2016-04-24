@@ -22,6 +22,10 @@ open class Settings(context: Context) {
     get() = localCache.get("read_notification", true)
     set(value) = localCache.put("read_notification", value)
 
+  open var readJustMessages: Boolean
+    get() = localCache.get("read_notification_message", false)
+    set(value) = localCache.put("read_notification_message", value)
+
   open val notificationPermissionGranted: Boolean
     get() = settingIsOn(Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES) ||
         settingIsOn(ENABLED_NOTIFICATION_LISTENERS)

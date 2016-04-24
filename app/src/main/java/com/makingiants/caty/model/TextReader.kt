@@ -1,7 +1,7 @@
 package com.makingiants.caty.model
 
 import android.content.Context
-import android.media.AudioManager.STREAM_VOICE_CALL
+import android.media.AudioManager.STREAM_NOTIFICATION
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -10,6 +10,8 @@ import java.util.*
 
 
 open class TextReader(context: Context) : TextToSpeech.OnInitListener {
+  private val STREAM = STREAM_NOTIFICATION
+
   private val mTextToSpeech: TextToSpeech
   private var mParams: HashMap<String, String>? = null
   private var mBundle: Bundle? = null
@@ -19,10 +21,10 @@ open class TextReader(context: Context) : TextToSpeech.OnInitListener {
 
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       mBundle = Bundle().apply {
-        putString(KEY_PARAM_STREAM, STREAM_VOICE_CALL.toString())
+        putInt(KEY_PARAM_STREAM, STREAM)
       }
     } else {
-      mParams = hashMapOf<String, String>(Pair(KEY_PARAM_STREAM, STREAM_VOICE_CALL.toString()));
+      mParams = hashMapOf<String, String>(Pair(KEY_PARAM_STREAM, STREAM.toString()));
     }
   }
 

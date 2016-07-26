@@ -1,4 +1,4 @@
-package com.makingiants.caty.settings
+package com.makingiants.caty.screens.settings
 
 import com.makingiants.caty.model.cache.Settings
 import com.makingiants.caty.model.notifications.Notifier

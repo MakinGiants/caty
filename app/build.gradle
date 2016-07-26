@@ -17,6 +17,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.ben-manes.versions'
 apply from: 'jacoco.gradle'
 apply plugin: 'io.fabric'
+apply plugin: 'com.neenbedankt.android-apt' // Dagger
 
 def appVersionCode = 1
 def appVersionName = "0.5"
@@ -50,6 +51,9 @@ repositories {
   maven { url 'https://maven.fabric.io/public' }
 }
 
+kapt {
+  generateStubs = true
+}
 
 dependencies {
   compile deps.supportLib
@@ -57,6 +61,11 @@ dependencies {
   compile 'io.reactivex:rxkotlin:0.55.0'
 
   compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true; }
+
+  compile 'com.google.dagger:dagger:2.0.2'
+//  apt 'com.google.dagger:dagger-compiler:2.0.2'
+  kapt 'com.google.dagger:dagger-compiler:2.0.2'
+  provided 'org.glassfish:javax.annotation:10.0-b28'
 
   compile files('libs/mockito-kt-0.0.5-beta.jar')
   testCompile 'junit:junit:4.12'

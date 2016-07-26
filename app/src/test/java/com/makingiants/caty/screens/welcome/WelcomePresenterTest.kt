@@ -1,4 +1,4 @@
-package com.makingiants.caty.welcome
+package com.makingiants.caty.screens.welcome
 
 import net.paslavsky.kotlin.mockito.verifyOnce
 import net.paslavsky.kotlin.mockito.verifyZeroInteractions
@@ -20,14 +20,14 @@ class WelcomePresenterTest {
     MockitoAnnotations.initMocks(this)
 
     mPresenter = WelcomePresenter()
-    mPresenter.onCreate(mockedView, mockedSettings)
+    mPresenter.attach(mockedView, mockedSettings)
 
     Mockito.reset(mockedView)
   }
 
   @Test
   fun test_onCreate_initViews() {
-    mPresenter.onCreate(mockedView, mockedSettings)
+    mPresenter.attach(mockedView, mockedSettings)
     verify(mockedView).initViews()
   }
 
@@ -40,7 +40,7 @@ class WelcomePresenterTest {
   @Test
   fun test_onResume_ifNotificationPermission_isGranted_startSettingsActivity() {
     Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(true)
-    mPresenter.onResume()
+    mPresenter.showSettingsIfNoPermissions()
 
     verifyOnce(mockedView) {
       close()
@@ -51,7 +51,7 @@ class WelcomePresenterTest {
   @Test
   fun test_onResume_ifNotificationPermission_notGranted_doNothing() {
     Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(false)
-    mPresenter.onResume()
+    mPresenter.showSettingsIfNoPermissions()
     verifyZeroInteractions(mockedView)
   }
 }

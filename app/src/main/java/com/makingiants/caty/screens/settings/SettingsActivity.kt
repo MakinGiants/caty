@@ -1,12 +1,13 @@
-package com.makingiants.caty.settings
+package com.makingiants.caty.screens.settings
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.makingiants.caty.CatyApplication
 import com.makingiants.caty.R
 import com.makingiants.caty.model.cache.Settings
 import com.makingiants.caty.model.notifications.Notifier
-import com.makingiants.caty.welcome.WelcomeActivity
+import com.makingiants.caty.screens.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.settings_activity.*
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.makingiants.caty.welcome
+package com.makingiants.caty.screens.welcome
 
 interface WelcomeView {
   fun initViews()

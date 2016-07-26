@@ -7,7 +7,7 @@ import rx.Observable
 import rx.Subscription
 import java.util.concurrent.TimeUnit
 
-open class NotificationHandler(private val settings: Settings,
+open class NotificationHandler(val settings: Settings,
                                val textReader: TextReader,
                                val deviceStatusChecker: DeviceStatusChecker) {
 

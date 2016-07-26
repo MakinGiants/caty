@@ -30,7 +30,7 @@ class WelcomeActivity : AppCompatActivity(), WelcomeView {
     presenter.unAttach()
   }
 
-  override fun initViews() {
+  override fun setupViews() {
     setTitle(R.string.welcome)
 
     permissionButton.setOnClickListener { presenter.onButtonNotificationPermissionClick() }

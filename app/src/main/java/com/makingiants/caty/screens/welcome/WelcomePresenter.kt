@@ -7,7 +7,7 @@ class WelcomePresenter(val settings: Settings) {
 
   fun attach(view: WelcomeView) {
     this.view = view
-    view.initViews()
+    view.setupViews()
     showSettingsIfNoPermissions()
   }
 

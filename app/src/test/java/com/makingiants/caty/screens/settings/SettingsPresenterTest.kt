@@ -23,7 +23,7 @@ class SettingsPresenterTest {
     MockitoAnnotations.initMocks(this)
 
     presenter = SettingsPresenter()
-    presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    presenter.attach(mockedView, mockedSettings, mockedNotificationFabric)
 
     Mockito.reset(mockedView)
   }
@@ -36,10 +36,10 @@ class SettingsPresenterTest {
     Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(checked)
     Mockito.`when`(mockedSettings.readJustMessages).thenReturn(checked)
 
-    spiedPresenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    spiedPresenter.attach(mockedView, mockedSettings, mockedNotificationFabric)
 
     verifyOnce(mockedView) {
-      initViews()
+      setupViews()
       setHeadphonesToggleCheck(checked)
       setReadNotificationsCheck(checked)
       setReadOnlyMessageNotificationsCheck(checked)
@@ -61,7 +61,7 @@ class SettingsPresenterTest {
   fun test_onCreate_ifPermissionsNOTGranted_startWelcomeView() {
     Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(false)
 
-    presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    presenter.attach(mockedView, mockedSettings, mockedNotificationFabric)
 
     verifyOnce(mockedView) {
       startWelcomeView()

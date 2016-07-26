@@ -28,7 +28,7 @@ class WelcomePresenterTest {
   @Test
   fun test_onCreate_initViews() {
     mPresenter.attach(mockedView, mockedSettings)
-    verify(mockedView).initViews()
+    verify(mockedView).setupViews()
   }
 
   @Test

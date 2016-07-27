@@ -3,20 +3,17 @@ package com.makingiants.caty.services
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.view.accessibility.AccessibilityEvent
-import com.makingiants.caty.model.DeviceStatusChecker
-import com.makingiants.caty.model.TextReader
-import com.makingiants.caty.model.cache.Settings
+import com.makingiants.caty.CatyApplication
 import com.makingiants.caty.model.notifications.Notification
 import com.makingiants.caty.model.notifications.NotificationHandler
+import javax.inject.Inject
 
 class AccessibilityListenerService : AccessibilityService() {
-  internal var mNotificationActor: NotificationHandler? = null
+  @Inject lateinit var mNotificationActor: NotificationHandler
 
   public override fun onServiceConnected() {
     super.onServiceConnected()
-
-    mNotificationActor = NotificationHandler(Settings(applicationContext),
-        TextReader(applicationContext), DeviceStatusChecker(applicationContext))
+    (application as CatyApplication).applicationComponent.inject(this)
 
     val info = AccessibilityServiceInfo()
     info.eventTypes = AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED
@@ -33,12 +30,11 @@ class AccessibilityListenerService : AccessibilityService() {
 
       // TODO: Check when an event should sound or not
       val notification = Notification.with(text, title, aPackage, true)
-      mNotificationActor?.handle(notification)
+      mNotificationActor.handle(notification)
     }
   }
 
   override fun onInterrupt() {
-
   }
 
   fun AccessibilityEvent.getEventText(): String {

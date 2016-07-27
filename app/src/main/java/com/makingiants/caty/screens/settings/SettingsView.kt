@@ -1,7 +1,7 @@
-package com.makingiants.caty.settings
+package com.makingiants.caty.screens.settings
 
 interface SettingsView {
-  fun initViews()
+  fun setupViews()
 
   fun startWelcomeView()
 

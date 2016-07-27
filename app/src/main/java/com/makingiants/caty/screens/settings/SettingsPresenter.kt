@@ -1,20 +1,16 @@
-package com.makingiants.caty.settings
+package com.makingiants.caty.screens.settings
 
 import com.makingiants.caty.model.cache.Settings
 import com.makingiants.caty.model.notifications.Notifier
 
-open class SettingsPresenter {
-  private var mSettings: Settings? = null
-  private var mView: SettingsView? = null
-  private var mNotifier: Notifier? = null
+open class SettingsPresenter(val settings: Settings, val notifier: Notifier) {
+  private var view: SettingsView? = null
 
-  fun onCreate(view: SettingsView, settings: Settings, notificationFabric: Notifier) {
-    mView = view
-    mSettings = settings
-    mNotifier = notificationFabric
+  fun attach(view: SettingsView) {
+    this.view = view
 
-    if (mSettings?.notificationPermissionGranted ?: false) {
-      view.initViews()
+    if (settings.notificationPermissionGranted) {
+      view.setupViews()
       view.setHeadphonesToggleCheck(settings.playJustWithHeadphones)
       view.setReadNotificationsCheck(settings.readNotificationEnabled)
       view.setReadOnlyMessageNotificationsCheck(settings.readJustMessages)
@@ -26,21 +22,25 @@ open class SettingsPresenter {
     }
   }
 
+  fun unAttach() {
+    view = null
+  }
+
   fun onSwitchPlayJustWithHeadphonesClick(checked: Boolean) {
-    mSettings?.playJustWithHeadphones = checked
+    settings.playJustWithHeadphones = checked
   }
 
   fun onButtonTryClick(text: String) {
-    mNotifier?.notify("Test", text)
+    notifier.notify("Test", text)
   }
 
   fun onSwitchReadNotificationEnabledClick(checked: Boolean) {
-    mSettings?.readNotificationEnabled = checked
+    settings.readNotificationEnabled = checked
     setOtherViewsEnabled(checked)
   }
 
   open fun setOtherViewsEnabled(enabled: Boolean) {
-    mView?.apply {
+    view?.apply {
       setEnabledSwitchPlayJustWithHeadphones(enabled)
       setEnabledSwitchPlayJustMessageNotifications(enabled)
     }

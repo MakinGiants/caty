@@ -1,41 +1,48 @@
-package com.makingiants.caty.settings
+package com.makingiants.caty.screens.settings
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.makingiants.caty.CatyApplication
 import com.makingiants.caty.R
-import com.makingiants.caty.model.cache.Settings
-import com.makingiants.caty.model.notifications.Notifier
-import com.makingiants.caty.welcome.WelcomeActivity
+import com.makingiants.caty.screens.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.settings_activity.*
 import java.util.*
+import javax.inject.Inject
 
 class SettingsActivity : AppCompatActivity(), SettingsView {
-
-  private var mPresenter: SettingsPresenter? = null
+  @Inject lateinit var presenter: SettingsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    mPresenter = SettingsPresenter()
-    mPresenter?.onCreate(this, Settings(applicationContext), Notifier(applicationContext))
+    setContentView(R.layout.settings_activity)
+    (application as CatyApplication).applicationComponent.inject(this)
   }
 
-  override fun initViews() {
-    setContentView(R.layout.settings_activity)
+  override fun onResume() {
+    super.onResume()
+    presenter.attach(this)
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    presenter.unAttach()
+  }
+
+  override fun setupViews() {
     setTitle(R.string.settings)
 
     justHeadphonesSwitch.setOnCheckedChangeListener({ v, check ->
-      mPresenter?.onSwitchPlayJustWithHeadphonesClick(check)
+      presenter.onSwitchPlayJustWithHeadphonesClick(check)
     })
 
     readNotificationSwitch.setOnCheckedChangeListener { v, check ->
-      mPresenter?.onSwitchReadNotificationEnabledClick(check)
+      presenter.onSwitchReadNotificationEnabledClick(check)
     }
 
     tryButton.setOnClickListener({
       val testStrings = resources.getStringArray(R.array.settings_test)
-      mPresenter?.onButtonTryClick(testStrings[Random().nextInt(testStrings.size)])
+      presenter.onButtonTryClick(testStrings[Random().nextInt(testStrings.size)])
     })
   }
 

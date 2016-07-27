@@ -1,4 +1,4 @@
-package com.makingiants.caty.settings
+package com.makingiants.caty.screens.settings
 
 import com.makingiants.caty.model.cache.Settings
 import com.makingiants.caty.model.notifications.Notifier
@@ -22,8 +22,8 @@ class SettingsPresenterTest {
   fun setUp() {
     MockitoAnnotations.initMocks(this)
 
-    presenter = SettingsPresenter()
-    presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    presenter = SettingsPresenter(mockedSettings, mockedNotificationFabric)
+    presenter.attach(mockedView)
 
     Mockito.reset(mockedView)
   }
@@ -36,10 +36,10 @@ class SettingsPresenterTest {
     Mockito.`when`(mockedSettings.readNotificationEnabled).thenReturn(checked)
     Mockito.`when`(mockedSettings.readJustMessages).thenReturn(checked)
 
-    spiedPresenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    spiedPresenter.attach(mockedView)
 
     verifyOnce(mockedView) {
-      initViews()
+      setupViews()
       setHeadphonesToggleCheck(checked)
       setReadNotificationsCheck(checked)
       setReadOnlyMessageNotificationsCheck(checked)
@@ -61,7 +61,7 @@ class SettingsPresenterTest {
   fun test_onCreate_ifPermissionsNOTGranted_startWelcomeView() {
     Mockito.`when`(mockedSettings.notificationPermissionGranted).thenReturn(false)
 
-    presenter.onCreate(mockedView, mockedSettings, mockedNotificationFabric)
+    presenter.attach(mockedView)
 
     verifyOnce(mockedView) {
       startWelcomeView()

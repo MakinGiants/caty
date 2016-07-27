@@ -9,8 +9,8 @@ android:
 
   components:
     - tools
-    - build-tools-23.0.2
-    - android-23
+    - build-tools-24.0.1
+    - android-24
     - extra-android-support
     - extra-android-m2repository
 
@@ -21,6 +21,9 @@ before_install:
 
 after_success:
   - codecov
+
+jdk:
+  - oraclejdk8
 
 script:
     - echo "apiKey=$FABRIC_API_KEY" >> app/fabric.properties
